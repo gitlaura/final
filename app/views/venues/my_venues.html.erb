@@ -1,0 +1,41 @@
+<head>
+  <%= stylesheet_link_tag    'venues', media: 'all', 'data-turbolinks-track' => true %>
+</head>
+
+<div id = "my-header" class = "col-xs-12 center">
+	<div id="header-background">
+		<h1>Places you recommend for big groups.</h1>
+	</div>
+</div>
+
+<div id="new-button" class="col-md-12 center">
+   <a class="btn btn-warning" href="/venues/new">Add a New Place</a>
+</div>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th>Neighborhood</th>
+      <th>Cuisine</th>
+      <th>Likes</th>
+      <th>Reviews</th>
+      <th></th>
+      <th></th>
+    </tr>
+  <tbody>
+    <% @venues.each do |venue| %>
+      <tr>
+        <td><%= link_to venue.name, "/venues/#{venue.id}" %></td>
+        <td><%= venue.city %></td>
+        <td><%= venue.neighborhood %></td>
+        <td><%= venue.cuisine %></td>
+        <td>50</td>
+        <td>11</td>
+        <td><%= link_to "Delete", "/venues/#{venue.id}", :method => "delete" %></td>
+        <td><%= link_to "Edit", "/venues/#{venue.id}/edit" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

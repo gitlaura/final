@@ -1,0 +1,23 @@
+Venue
+  name: string
+  address1: string
+  address2: string
+  zipcode: string
+  state: string
+  city: string
+  neighborhood: string
+  cuisine: string
+  desc: text
+  photo_url: string
+  url: string
+  reservations: string
+
+Review
+  user_id: integer
+  venue_id: integer
+  rating: integer
+  notes: string
+
+Like
+  user_id: integer
+  venue_id: integer

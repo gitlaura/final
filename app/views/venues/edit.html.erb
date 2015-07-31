@@ -1,0 +1,80 @@
+<head>
+  <%= stylesheet_link_tag    'venues', media: 'all', 'data-turbolinks-track' => true %>
+</head>
+
+<h2><%=@venue.name%></h2>
+
+<%= form_tag "/venues/#{@venue.id}", :method => "patch" do %>
+
+  <div class="form-format">
+    <label>Name:</label>
+    <%= text_field(:venue, :name) %>
+  </div>
+
+  <div class="form-format">
+    <label>Address Line 1:</label>
+    <%= text_field(:venue, :address1) %>
+  </div>
+
+  <div class="form-format">
+    <label>Address Line 2:</label>
+    <%= text_field(:venue, :address2) %>
+  </div>
+
+  <div class="form-format">
+    <label>City:</label>
+    <%= text_field(:venue, :city) %>
+  </div>
+
+  <div class="form-format">
+    <label>Neighborhood:</label>
+    <%= text_field(:venue, :neighborhood) %>
+  </div>
+
+  <div class="form-format">
+    <label>State:</label>
+    <%= text_field(:venue, :state) %>
+  </div>
+
+  <div class="form-format">
+    <label>Zip Code:</label>
+    <%= text_field(:venue, :zipcode) %>
+  </div>
+
+  <div class="form-format">
+    <label>Cuisine:</label>
+    <%= text_field(:venue, :cuisine) %>
+  </div>
+
+  <div class="form-format radio">
+    <label>Reservations:</label>
+    <div>
+    <div class="col-xs-2">
+    	Yes
+    	<%= radio_button_tag(:reservations, "yes", html:"class:reservations") %>
+    </div>
+    <div>
+    	No
+    	<%= radio_button_tag(:reservations, "no") %>
+  	</div>
+	</div>
+  </div>
+
+  <div class="form-format">
+    <label>Description:</label>
+    <%= text_area(:venue, :desc, size: "40x5") %>
+  </div>
+
+  <div class="form-format">
+    <label>Website:</label>
+    <%= text_field(:venue, :url) %>
+  </div>
+
+  <div class="form-format">
+    <label>Photo URL:</label>
+    <%= text_field(:venue, :photo_url) %>
+  </div>
+
+  <%=submit_tag "Update", class: "btn btn-success edit-btn"%>
+
+<% end %>

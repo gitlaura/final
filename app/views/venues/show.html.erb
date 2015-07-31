@@ -1,0 +1,17 @@
+<div class="col-xs-6">
+	<h2><%= @venue.name %></h2>
+	<h4><%=@venue.neighborhood%>, <%=@venue.cuisine%></h4>
+	<h4><%= link_to @venue.url, "#{@venue.url}" %></h4>
+
+	<p><%= image_tag @venue.photo_url, width: 600 %></p>
+
+	<p>
+		<%= @venue.address1 %></br>
+			<%if @venue.address2 != ""%>
+				<%= @venue.address2 %></br>
+			<%end%>
+		<%= @venue.city %>, <%= @venue.state %> <%= @venue.zipcode %>
+	</p>
+
+	<p><%= @venue.desc %></p>
+</div>

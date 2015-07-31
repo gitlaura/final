@@ -1,0 +1,80 @@
+<head>
+  <%= stylesheet_link_tag    'venues', media: 'all', 'data-turbolinks-track' => true %>
+</head>
+
+<h2>Add a Restaurant or Bar</h2>
+
+<%= form_tag "/venues" do %>
+
+  <div class="form-format">
+    <label>Name:</label>
+    <%= text_field_tag(:name) %>
+  </div>
+
+  <div class="form-format">
+    <label>Address Line 1:</label>
+    <%= text_field_tag(:address1) %>
+  </div>
+
+  <div class="form-format">
+    <label>Address Line 2:</label>
+    <%= text_field_tag(:address2) %>
+  </div>
+
+  <div class="form-format">
+    <label>City:</label>
+    <%= text_field_tag(:city) %>
+  </div>
+
+  <div class="form-format">
+    <label>Neighborhood:</label>
+    <%= text_field_tag(:neighborhood) %>
+  </div>
+
+  <div class="form-format">
+    <label>State:</label>
+    <%= text_field_tag(:state) %>
+  </div>
+
+  <div class="form-format">
+    <label>Zip Code:</label>
+    <%= text_field_tag(:zipcode) %>
+  </div>
+
+  <div class="form-format">
+    <label>Cuisine:</label>
+    <%= text_field_tag(:cuisine) %>
+  </div>
+
+  <div class="form-format radio">
+    <label>Reservations:</label>
+    <div>
+    <div class="col-xs-2">
+    	Yes
+    	<%= radio_button_tag(:reservations, "yes", html:"class:reservations") %>
+    </div>
+    <div>
+    	No
+    	<%= radio_button_tag(:reservations, "no") %>
+  	</div>
+	</div>
+  </div>
+
+  <div class="form-format">
+    <label>Description:</label>
+    <%= text_area_tag(:desc, nil, size: "40x4") %>
+  </div>
+
+  <div class="form-format">
+    <label>Website:</label>
+    <%= text_field_tag(:url) %>
+  </div>
+
+  <div class="form-format">
+    <label>Photo URL:</label>
+    <%= text_field_tag(:photo_url) %>
+  </div>
+
+  <%=submit_tag "Submit", class: "btn btn-success edit-btn"%>
+
+<% end %>

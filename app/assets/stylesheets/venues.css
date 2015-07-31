@@ -1,0 +1,58 @@
+#new-button{
+	margin:20px 0px;
+}
+
+#header{
+	height: 250px;
+	padding: 10px;
+}
+
+#header-background{
+	background-color: black;
+	opacity:0.6;
+  filter:alpha(opacity=60);
+}
+
+h1{
+	color: white;
+	font-weight: bold;
+	font-size: 60px;
+	opacity: 1.0;
+	padding:3px;
+}
+
+h2{
+	margin-bottom: 20px;
+}
+
+#my-header{
+	height: 100px;
+	padding: 10px;
+}
+
+.form-format{
+	margin:10px 0px;
+}
+
+input{
+	width:300px;
+}
+
+.radio input[type="radio"]{
+		width:50px;
+		margin-left: 0px;
+}
+
+label{
+  width: 150px;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block
+}
+
+input[type="submit"]{
+	width:100px;
+	margin-bottom: 20px;
+	margin-left: 200px;
+}
