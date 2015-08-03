@@ -3,15 +3,18 @@ class VenuesController < ApplicationController
 	def index
     if params["keyword"].present?
       k = params["keyword"].strip
-      @venues = Venue.where("title LIKE '%#{k}%'")
+      @venues = Venue.where("name LIKE '%#{k}%' OR neighborhood LIKE '%#{k}%'").order("created_at desc")
+    elsif params["city"].present?
+      c = params["city"]
+      @venues = Venue.where(:city => c).order("created_at desc")
     else
-      @venues = Venue.all
+      @venues = Venue.order("created_at desc")
     end
   end
 
 	def my_venues
 		#this should only be the venues subitted by the users eventually
-		@venues = Venue.all
+		@venues = Venue.order("created_at desc")
 	end
 
   def update
@@ -52,6 +55,7 @@ class VenuesController < ApplicationController
     venue.url = params['url']
     venue.photo_url = params['photo_url']
     venue.desc = params['desc']
+    venue.created_at = Time.now
     if venue.save
       redirect_to '/my_venues'
     else

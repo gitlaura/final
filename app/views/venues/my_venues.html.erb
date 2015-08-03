@@ -4,7 +4,7 @@
 
 <div id = "my-header" class = "col-xs-12 center">
 	<div id="header-background">
-		<h1>Places you recommend for big groups.</h1>
+		<h1>Places you've recommended.</h1>
 	</div>
 </div>
 
@@ -33,7 +33,7 @@
         <td><%= venue.cuisine %></td>
         <td>50</td>
         <td>11</td>
-        <td><%= link_to "Delete", "/venues/#{venue.id}", :method => "delete" %></td>
+        <td><%= link_to "Delete", "/venues/#{venue.id}", :method => "delete", data: {confirm: "Are you sure?"} %></td>
         <td><%= link_to "Edit", "/venues/#{venue.id}/edit" %></td>
       </tr>
     <% end %>

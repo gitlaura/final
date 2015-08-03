@@ -33,3 +33,7 @@
 
 html, body, .wrapper { height: 100%;}
 body > .wrapper { height: auto; min-height: 100%;}
+
+#search-form{
+	width: 250px;
+}

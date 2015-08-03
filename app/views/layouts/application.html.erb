@@ -30,15 +30,15 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select City <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Chicago</a></li>
-            <li><a href="#">New York City</a></li>
-            <li><a href="#">San Francisco</a></li>
+            <li><a href="/?city=Chicago">Chicago</a></li>
+            <li><a href="/?city=New York">New York</a></li>
+            <li><a href="/?city=San Francisco">San Francisco</a></li>
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" role="search" action="/">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search venues">
+          <input value="<%= params[:keyword] %>" name="keyword" type="text" class="form-control" id="search-form" placeholder="Search venues or neighborhoods">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>

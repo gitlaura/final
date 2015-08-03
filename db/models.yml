@@ -11,13 +11,16 @@ Venue
   photo_url: string
   url: string
   reservations: string
+  created_at: timestamp
 
 Review
   user_id: integer
   venue_id: integer
   rating: integer
   notes: string
+  created_at: timestamp
 
 Like
   user_id: integer
   venue_id: integer
+  created_at: timestamp
