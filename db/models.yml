@@ -8,19 +8,25 @@ Venue
   neighborhood: string
   cuisine: string
   desc: text
-  photo_url: string
   url: string
   reservations: string
-  created_at: timestamp
+  user_id: integer
 
-Review
+Hold
   user_id: integer
   venue_id: integer
-  rating: integer
-  notes: string
-  created_at: timestamp
 
 Like
   user_id: integer
   venue_id: integer
-  created_at: timestamp
+
+Photo
+  venue_id: integer
+  url: string
+
+User
+  fname: string
+  lname: string
+  email: string
+  password: string
+  admin: boolean

@@ -4,6 +4,14 @@
 
 <h2>Add a Restaurant or Bar</h2>
 
+<% if @venue.errors.any? %>
+  <ul class="list-unstyled text-danger">
+    <% @venue.errors.full_messages.each do |msg| %>
+      <li><strong><%= msg %></strong></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_tag "/venues" do %>
 
   <div class="form-format">
@@ -47,7 +55,7 @@
   </div>
 
   <div class="form-format radio">
-    <label>Reservations:</label>
+    <label><b>Reservations:</b></label>
     <div>
     <div class="col-xs-2">
     	Yes
@@ -61,18 +69,26 @@
   </div>
 
   <div class="form-format">
-    <label>Description:</label>
-    <%= text_area_tag(:desc, nil, size: "40x4") %>
+    <label>Why is this a good place for big groups?</label>
+    <%= text_area_tag(:desc, nil, size: "40x5") %>
   </div>
 
   <div class="form-format">
-    <label>Website:</label>
+    <label>Website URL:</label>
     <%= text_field_tag(:url) %>
   </div>
 
+  <% if @photo.errors.any? %>
+    <ul class="list-unstyled text-danger">
+      <% @venue.errors.full_messages.each do |msg| %>
+        <li><strong><%= msg %></strong></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <div class="form-format">
-    <label>Photo URL:</label>
-    <%= text_field_tag(:photo_url) %>
+    <label>Photo URL(s): Please enter at least one URL with a comma between each</label>
+    <%= text_area_tag(:photo_urls, nil, size: "40x5"	) %>
   </div>
 
   <%=submit_tag "Submit", class: "btn btn-success edit-btn"%>

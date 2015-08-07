@@ -13,6 +13,14 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
+  create_table "holds", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "venue_id"
+  end
+
+  add_index "holds", ["user_id"], name: "index_holds_on_user_id"
+  add_index "holds", ["venue_id"], name: "index_holds_on_venue_id"
+
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "venue_id"
@@ -22,16 +30,20 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "likes", ["user_id"], name: "index_likes_on_user_id"
   add_index "likes", ["venue_id"], name: "index_likes_on_venue_id"
 
-  create_table "reviews", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "venue_id"
-    t.integer  "rating"
-    t.string   "notes"
-    t.datetime "created_at"
+  create_table "photos", force: :cascade do |t|
+    t.integer "venue_id"
+    t.string  "url"
   end
 
-  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
-  add_index "reviews", ["venue_id"], name: "index_reviews_on_venue_id"
+  add_index "photos", ["venue_id"], name: "index_photos_on_venue_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string  "email"
+    t.string  "password"
+    t.boolean "admin",    default: false
+    t.string  "fname"
+    t.string  "lname"
+  end
 
   create_table "venues", force: :cascade do |t|
     t.string   "name"
@@ -41,12 +53,14 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "state"
     t.string   "city"
     t.text     "desc"
-    t.string   "photo_url"
     t.string   "neighborhood"
     t.string   "cuisine"
     t.string   "reservations"
     t.string   "url"
     t.datetime "created_at"
+    t.integer  "user_id"
   end
+
+  add_index "venues", ["user_id"], name: "index_venues_on_user_id"
 
 end

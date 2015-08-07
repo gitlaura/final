@@ -4,6 +4,14 @@
 
 <h2><%=@venue.name%></h2>
 
+<% if @venue.errors.any? %>
+  <ul class="list-unstyled text-danger">
+    <% @venue.errors.full_messages.each do |msg| %>
+      <li><strong><%= msg %></strong></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_tag "/venues/#{@venue.id}", :method => "patch" do %>
 
   <div class="form-format">
@@ -47,7 +55,7 @@
   </div>
 
   <div class="form-format radio">
-    <label>Reservations:</label>
+    <label><b>Reservations:</b></label>
     <div>
     <div class="col-xs-2">
     	Yes
@@ -61,18 +69,33 @@
   </div>
 
   <div class="form-format">
-    <label>Description:</label>
+    <label>Why is this a good place for big groups?</label>
     <%= text_area(:venue, :desc, size: "40x5") %>
   </div>
 
   <div class="form-format">
-    <label>Website:</label>
+    <label>Website URL:</label>
     <%= text_field(:venue, :url) %>
   </div>
 
+  <% if @photo.errors.any? %>
+    <ul class="list-unstyled text-danger">
+      <% @venue.errors.full_messages.each do |msg| %>
+        <li><strong><%= msg %></strong></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <div class="form-format">
-    <label>Photo URL:</label>
-    <%= text_field(:venue, :photo_url) %>
+    <label>Photo URL(s): Please enter at least one URL with a comma between each</label>
+    <% photo_urls = ""
+    	@venue.photos.each do |photo|
+    		photo_urls += photo.url
+    		photo_urls += ','
+    	end
+    	photo_urls = photo_urls[0..-2] %>
+
+    <%= text_area_tag(:photo_urls, photo_urls, size: "40x5"	) %>
   </div>
 
   <%=submit_tag "Update", class: "btn btn-success edit-btn"%>

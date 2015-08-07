@@ -12,54 +12,72 @@ class VenuesController < ApplicationController
     end
   end
 
-	def my_venues
-		#this should only be the venues subitted by the users eventually
-		@venues = Venue.order("created_at desc")
-	end
-
   def update
-    venue = Venue.find_by(:id => params["id"])
-    venue.name = params['venue']['name']
-    venue.city = params['venue']['city']
-    venue.state = params['venue']['state']
-    venue.address1 = params['venue']['address1']
-    venue.address2 = params['venue']['address2']
-    venue.cuisine = params['venue']['cuisine']
-    venue.neighborhood = params['venue']['neighborhood']
-    venue.reservations = params['reservations']
-    venue.url = params['venue']['url']
-    venue.photo_url = params['venue']['photo_url']
-    venue.desc = params['venue']['desc']
-    venue.save
-    redirect_to '/my_venues'
+    @photo = Photo.new
+    @venue = Venue.find_by(:id => params["id"])
+    @venue.name = params['venue']['name']
+    @venue.city = params['venue']['city']
+    @venue.state = params['venue']['state']
+    @venue.address1 = params['venue']['address1']
+    @venue.address2 = params['venue']['address2']
+    @venue.cuisine = params['venue']['cuisine']
+    @venue.neighborhood = params['venue']['neighborhood']
+    @venue.reservations = params['reservations']
+    @venue.url = params['venue']['url']
+    @venue.desc = params['venue']['desc']
+    @venue.save
+    if @venue.save
+    	photo_urls = params['photo_urls'].split(",")
+    	photo_urls.each do |photo_url|
+    		@photo = Photo.new
+    		@photo.url = photo_url
+    		@photo.venue_id = @venue.id
+    		if @photo.save == false
+    			render 'edit'
+    		end
+    	end
+      redirect_to '/my_venues'
+    else
+      render 'edit'
+    end
   end
 
   def edit
+    @photo = Photo.new
     @venue = Venue.find_by(:id => params["id"])
   end
 
   def new
     @venue = Venue.new
+    @photo = Photo.new
   end
 
   def create
-    venue = Venue.new
-    venue.name = params['name']
-    venue.city = params['city']
-    venue.state = params['state']
-    venue.address1 = params['address1']
-    venue.address2 = params['address2']
-    venue.cuisine = params['cuisine']
-    venue.neighborhood = params['neighborhood']
-    venue.reservations = params['reservations']
-    venue.url = params['url']
-    venue.photo_url = params['photo_url']
-    venue.desc = params['desc']
-    venue.created_at = Time.now
-    if venue.save
+    @photo = Photo.new
+    @venue = Venue.new
+    @venue.name = params['name']
+    @venue.city = params['city']
+    @venue.state = params['state']
+    @venue.address1 = params['address1']
+    @venue.address2 = params['address2']
+    @venue.cuisine = params['cuisine']
+    @venue.neighborhood = params['neighborhood']
+    @venue.reservations = params['reservations']
+    @venue.url = params['url']
+    @venue.desc = params['desc']
+    @venue.user_id = session[:user_id]
+    if @venue.save
+    	photo_urls = params['photo_urls'].split(",")
+    	photo_urls.each do |photo_url|
+    		@photo = Photo.new
+    		@photo.url = photo_url
+    		@photo.venue_id = @venue.id
+    		if @photo.save == false
+    			render 'new'
+    		end
+    	end
       redirect_to '/my_venues'
     else
-    	#add error text
       render 'new'
     end
   end
@@ -72,6 +90,33 @@ class VenuesController < ApplicationController
 
   def show
     @venue = Venue.find_by(:id => params["id"])
-    #cookies["venue_id"] = @venue.id
+    @submitted_by = User.find_by_id(@venue.user_id)
+    @photos = @venue.photos
+    @liked = false
+    @saved = false
+
+    @user = User.find_by_id(session[:user_id])
+    if @user
+      likes = @user.likes
+      if likes.count > 0 and likes.where(:venue_id => @venue.id).count > 0
+        @liked = true
+      end
+
+      saves = @user.holds
+      if saves.count > 0 and saves.where(:venue_id => @venue.id).count > 0
+        @saved = true
+      end
+    end
   end
+
+  def my_venues
+    user = User.find_by_id(session[:user_id])
+    @venues = user.venues.order("created_at desc")
+  end
+
+  def saved
+    user = User.find_by_id(session[:user_id])
+    @saves = user.holds
+  end
+
 end

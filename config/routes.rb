@@ -2,8 +2,22 @@ Rails.application.routes.draw do
   root 'venues#index'
 
   resources :venues
+  resources :users
+  resources :likes
+  resources :holds
+  resources :photos
 
   get 'my_venues' => 'venues#my_venues'
+  get 'saved' => 'venues#saved'
+  get 'like' => 'venues#like'
+  get 'unlike' => 'venues#unlike'
+  get 'save' => 'venues#save'
+  get 'remove' => 'venues#remove'
+
+  get '/sessions/new' => 'sessions#new'
+  post '/sessions' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+  get '/account' => 'users#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -20,7 +20,6 @@
       <th width="20%">Neighborhood</th>
       <th>Cuisine</th>
       <th>Likes</th>
-      <th>Reviews</th>
     </tr>
   <tbody>
     <% @venues.each do |venue| %>
@@ -29,8 +28,7 @@
         <td><%= venue.city %></td>
         <td><%= venue.neighborhood %></td>
         <td><%= venue.cuisine %></td>
-        <td>50</td>
-        <td>11</td>
+        <td><%= venue.likes.count %></td>
       </tr>
     <% end %>
   </tbody>
