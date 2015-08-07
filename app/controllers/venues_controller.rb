@@ -65,6 +65,7 @@ class VenuesController < ApplicationController
     @venue.reservations = params['reservations']
     @venue.url = params['url']
     @venue.desc = params['desc']
+    @venue.created_at = Time.now
     @venue.user_id = session[:user_id]
     if @venue.save
     	photo_urls = params['photo_urls'].split(",")

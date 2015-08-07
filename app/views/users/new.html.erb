@@ -1,6 +1,4 @@
-<div class="page-header">
-  <h1>Sign Up</h1>
-</div>
+<h1>Sign Up</h1>
 
 <% if @user.errors.any? %>
   <ul class="list-unstyled text-danger">
@@ -31,12 +29,12 @@
     <%= label_tag :password %>
     <%= password_field_tag(:password) %>
   </p>
-
+ 
   <p>
     <%= label_tag :password_confirmation, "Password Again" %>
     <%= password_field_tag(:password_confirmation)%>
   </p>
 
-  <%= submit_tag "Sign Me Up!" %>
+  <%= submit_tag "Sign Up", class: "btn btn-success"%>
 
 <% end %>

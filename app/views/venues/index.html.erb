@@ -20,6 +20,8 @@
       <th width="20%">Neighborhood</th>
       <th>Cuisine</th>
       <th>Likes</th>
+      <th></th>
+      <th></th>
     </tr>
   <tbody>
     <% @venues.each do |venue| %>
@@ -29,6 +31,7 @@
         <td><%= venue.neighborhood %></td>
         <td><%= venue.cuisine %></td>
         <td><%= venue.likes.count %></td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>

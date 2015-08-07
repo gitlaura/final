@@ -36,6 +36,7 @@ venue_data.each do |venue_hash|
 	venue.desc = venue_hash['desc']
 	venue.url = venue_hash['url']
 	venue.reservations = venue_hash['reservations']
+	venue.created_at = Time.now
 	venue.user_id = User.all.first.id
 	venue.save
 end

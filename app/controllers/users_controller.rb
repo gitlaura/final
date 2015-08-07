@@ -38,19 +38,39 @@ class UsersController < ApplicationController
     @user.fname = params[:fname]
     @user.lname = params[:lname]
     @user.email = params[:email]
-    @user.password = params[:password]
+    # @user.password = params[:password]
 
-    if @user.password.present? && @user.password == params[:password_confirmation]
-      if @user.save
+    # if @user.password.present? && @user.password == params[:password_confirmation]
+    if @user.save
         flash[:notice] = "Account updated successfully."
         redirect_to user_url(@user.id)
       else
         render 'edit'
       end
-    else
-      @user.errors.add(:password, "does not match")
-      render 'edit'
-    end
+    # else
+    #   @user.errors.add(:password, "does not match")
+    #   render 'edit'
+    # end
   end
 
+  def edit_password
+    @user = User.find_by_id(session[:user_id])
+  end
+
+  def update_password
+    @user = User.find_by_id(session[:user_id])
+    if params[:current_password] == @user.password
+      @user.password = params[:password]
+      if @user.password.present? && @user.password == params[:password_confirmation]
+        if @user.save
+          redirect_to user_url(@user.id)
+        else
+        render 'edit_password'
+        end
+      end
+    else
+      @user.errors.add(:password, "does not match")
+      render 'edit_password'
+    end
+  end
 end

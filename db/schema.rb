@@ -13,36 +13,38 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "holds", force: :cascade do |t|
     t.integer "user_id"
     t.integer "venue_id"
   end
 
-  add_index "holds", ["user_id"], name: "index_holds_on_user_id"
-  add_index "holds", ["venue_id"], name: "index_holds_on_venue_id"
+  add_index "holds", ["user_id"], name: "index_holds_on_user_id", using: :btree
+  add_index "holds", ["venue_id"], name: "index_holds_on_venue_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "venue_id"
-    t.datetime "created_at"
+    t.integer "user_id"
+    t.integer "venue_id"
   end
 
-  add_index "likes", ["user_id"], name: "index_likes_on_user_id"
-  add_index "likes", ["venue_id"], name: "index_likes_on_venue_id"
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+  add_index "likes", ["venue_id"], name: "index_likes_on_venue_id", using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.integer "venue_id"
     t.string  "url"
   end
 
-  add_index "photos", ["venue_id"], name: "index_photos_on_venue_id"
+  add_index "photos", ["venue_id"], name: "index_photos_on_venue_id", using: :btree
 
   create_table "users", force: :cascade do |t|
+    t.string  "fname"
+    t.string  "lname"
     t.string  "email"
     t.string  "password"
     t.boolean "admin",    default: false
-    t.string  "fname"
-    t.string  "lname"
   end
 
   create_table "venues", force: :cascade do |t|
@@ -52,15 +54,15 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "zipcode"
     t.string   "state"
     t.string   "city"
-    t.text     "desc"
     t.string   "neighborhood"
     t.string   "cuisine"
-    t.string   "reservations"
+    t.text     "desc"
     t.string   "url"
+    t.string   "reservations"
     t.datetime "created_at"
     t.integer  "user_id"
   end
 
-  add_index "venues", ["user_id"], name: "index_venues_on_user_id"
+  add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
 end

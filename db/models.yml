@@ -10,6 +10,7 @@ Venue
   desc: text
   url: string
   reservations: string
+  created_at: timestamp
   user_id: integer
 
 Hold
