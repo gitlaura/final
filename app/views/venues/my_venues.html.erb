@@ -4,7 +4,7 @@
 
 <div id = "my-header" class = "col-xs-12 center">
 	<div id="header-background">
-		<h1>Places you've recommended.</h1>
+		<h1>Places you've recommended</h1>
 	</div>
 </div>
 
@@ -41,7 +41,11 @@
     </tbody>
   </table>
 
-  <% else %>
+  <div style="float:right">
+    <%= paginate @venues %>
+  </div>
+
+<% else %>
 
   <div class="center">
     <h4>You haven't submitted any venues yet.</h4>

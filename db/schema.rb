@@ -13,38 +13,35 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "holds", force: :cascade do |t|
     t.integer "user_id"
     t.integer "venue_id"
   end
 
-  add_index "holds", ["user_id"], name: "index_holds_on_user_id", using: :btree
-  add_index "holds", ["venue_id"], name: "index_holds_on_venue_id", using: :btree
+  add_index "holds", ["user_id"], name: "index_holds_on_user_id"
+  add_index "holds", ["venue_id"], name: "index_holds_on_venue_id"
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "venue_id"
   end
 
-  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
-  add_index "likes", ["venue_id"], name: "index_likes_on_venue_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id"
+  add_index "likes", ["venue_id"], name: "index_likes_on_venue_id"
 
   create_table "photos", force: :cascade do |t|
     t.integer "venue_id"
     t.string  "url"
   end
 
-  add_index "photos", ["venue_id"], name: "index_photos_on_venue_id", using: :btree
+  add_index "photos", ["venue_id"], name: "index_photos_on_venue_id"
 
   create_table "users", force: :cascade do |t|
     t.string  "fname"
     t.string  "lname"
     t.string  "email"
-    t.string  "password"
-    t.boolean "admin",    default: false
+    t.boolean "admin",           default: false
+    t.string  "password_digest"
   end
 
   create_table "venues", force: :cascade do |t|
@@ -63,6 +60,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "user_id"
   end
 
-  add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
+  add_index "venues", ["user_id"], name: "index_venues_on_user_id"
 
 end

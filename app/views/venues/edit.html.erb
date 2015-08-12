@@ -15,42 +15,42 @@
 <%= form_tag "/venues/#{@venue.id}", :method => "patch" do %>
 
   <div class="form-format">
-    <label>Name:</label>
+    <%= label_tag :name %>
     <%= text_field(:venue, :name) %>
   </div>
 
   <div class="form-format">
-    <label>Address Line 1:</label>
+    <%= label_tag :address1, "Address Line 1" %>
     <%= text_field(:venue, :address1) %>
   </div>
 
   <div class="form-format">
-    <label>Address Line 2:</label>
+    <%= label_tag :address2, "Address Line 2" %>
     <%= text_field(:venue, :address2) %>
   </div>
 
   <div class="form-format">
-    <label>City:</label>
+    <%= label_tag :city %>
     <%= text_field(:venue, :city) %>
   </div>
 
   <div class="form-format">
-    <label>Neighborhood:</label>
+    <%= label_tag :neighborhood %>
     <%= text_field(:venue, :neighborhood) %>
   </div>
 
   <div class="form-format">
-    <label>State:</label>
+    <%= label_tag :state %>
     <%= text_field(:venue, :state) %>
   </div>
 
   <div class="form-format">
-    <label>Zip Code:</label>
+    <%= label_tag :zipcode %>
     <%= text_field(:venue, :zipcode) %>
   </div>
 
   <div class="form-format">
-    <label>Cuisine:</label>
+    <%= label_tag :cuisine %>
     <%= text_field(:venue, :cuisine) %>
   </div>
 
@@ -69,12 +69,12 @@
   </div>
 
   <div class="form-format">
-    <label>Why is this a good place for big groups?</label>
+    <%= label_tag :desc, "Why is this a good place for big groups?" %>
     <%= text_area(:venue, :desc, size: "40x5") %>
   </div>
 
   <div class="form-format">
-    <label>Website URL:</label>
+    <%= label_tag :url, "Website URL" %>
     <%= text_field(:venue, :url) %>
   </div>
 
@@ -87,7 +87,7 @@
   <% end %>
 
   <div class="form-format">
-    <label>Photo URL(s): Please enter at least one URL with a comma between each</label>
+    <%= label_tag :desc, "Please enter at least one URL with a comma between each" %>
     <% photo_urls = ""
     	@venue.photos.each do |photo|
     		photo_urls += photo.url

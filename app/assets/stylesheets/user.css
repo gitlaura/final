@@ -1,6 +1,6 @@
-#new-button{
-	margin:20px 0px;
-}
+// Place all the styles related to the User controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
 
 #header{
 	height: 150px;
@@ -54,8 +54,4 @@ input[type="submit"]{
 	width:100px;
 	margin-bottom: 20px;
 	margin-left: 250px;
-}
-
-img{
-	height: 400px;
 }

@@ -4,22 +4,22 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    # sessions[:user_id] = nil
     reset_session
-    redirect_to root_url, notice: "See ya!"
+    redirect_to root_url
   end
 
   def create
-    user = User.find_by_email(params["email"])
+    user = User.find_by_email(params["email"].downcase)
     if user
-      if user.password == params["password"]
+      if user.authenticate(params["password"])
         session[:user_id] = user.id
-        flash[:notice] = "Welcome Back, #{user.fname}!"
-        redirect_to root_url
+        redirect_to root_url, :notice => "Welcome back, #{user.fname}"
       else
+        flash.now[:notice] = "Incorrect password."
         render 'new'
       end
     else
+      flash.now[:notice] = "Cannot find email."
       render 'new'
     end
   end

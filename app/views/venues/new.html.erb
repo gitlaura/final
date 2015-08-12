@@ -12,45 +12,45 @@
   </ul>
 <% end %>
 
-<%= form_tag "/venues" do %>
+<%= form_tag venues_path do %>
 
   <div class="form-format">
-    <label>Name:</label>
+    <%= label_tag :name, "Name *" %>
     <%= text_field_tag(:name) %>
   </div>
 
   <div class="form-format">
-    <label>Address Line 1:</label>
+    <%= label_tag :address1, "Address Line 1" %>
     <%= text_field_tag(:address1) %>
   </div>
 
   <div class="form-format">
-    <label>Address Line 2:</label>
+    <%= label_tag :address2, "Address Line 2" %>
     <%= text_field_tag(:address2) %>
   </div>
 
   <div class="form-format">
-    <label>City:</label>
+    <%= label_tag :city, "City *" %>
     <%= text_field_tag(:city) %>
   </div>
 
   <div class="form-format">
-    <label>Neighborhood:</label>
+    <%= label_tag :neighborhood %>
     <%= text_field_tag(:neighborhood) %>
   </div>
 
   <div class="form-format">
-    <label>State:</label>
+    <%= label_tag :state %>
     <%= text_field_tag(:state) %>
   </div>
 
   <div class="form-format">
-    <label>Zip Code:</label>
+    <%= label_tag :zipcode %>
     <%= text_field_tag(:zipcode) %>
   </div>
 
   <div class="form-format">
-    <label>Cuisine:</label>
+    <%= label_tag :cuisine %>
     <%= text_field_tag(:cuisine) %>
   </div>
 
@@ -69,12 +69,12 @@
   </div>
 
   <div class="form-format">
-    <label>Why is this a good place for big groups?</label>
+    <%= label_tag :desc, "Why is this place good for big groups? *" %>
     <%= text_area_tag(:desc, nil, size: "40x5") %>
   </div>
 
   <div class="form-format">
-    <label>Website URL:</label>
+    <%= label_tag :url, "Website URL" %>
     <%= text_field_tag(:url) %>
   </div>
 
@@ -87,7 +87,7 @@
   <% end %>
 
   <div class="form-format">
-    <label>Photo URL(s): Please enter at least one URL with a comma between each</label>
+    <%= label_tag :photo_urls, "Photo URL(s): Please enter at least one URL with a comma between each" %>
     <%= text_area_tag(:photo_urls, nil, size: "40x5"	) %>
   </div>
 

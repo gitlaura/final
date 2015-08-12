@@ -4,7 +4,7 @@
 
 <div id = "my-header" class = "col-xs-12 center">
 	<div id="header-background">
-		<h1>Places you've saved for later.</h1>
+		<h1>Places you've saved for later</h1>
 	</div>
 </div>
 
@@ -33,6 +33,10 @@
       <% end %>
     </tbody>
   </table>
+
+  <div style="float:right">
+    <%= paginate @saves %>
+  </div>
 
 <% else %>
 

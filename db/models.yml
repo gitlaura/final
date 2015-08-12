@@ -29,5 +29,5 @@ User
   fname: string
   lname: string
   email: string
-  password: string
+  password_digest: string
   admin: boolean

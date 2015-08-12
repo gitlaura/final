@@ -10,6 +10,13 @@ class VenuesController < ApplicationController
     else
       @venues = Venue.order("created_at desc")
     end
+    
+    if params[:page]
+      page_no = params[:page]
+    else 
+      page_no = 1
+    end
+    @venues = @venues.page(page_no).per(10)
   end
 
   def update
@@ -27,23 +34,25 @@ class VenuesController < ApplicationController
     @venue.desc = params['venue']['desc']
     @venue.save
     if @venue.save
-    	photo_urls = params['photo_urls'].split(",")
-    	photo_urls.each do |photo_url|
-    		@photo = Photo.new
-    		@photo.url = photo_url
-    		@photo.venue_id = @venue.id
-    		if @photo.save == false
-    			render 'edit'
-    		end
-    	end
-      redirect_to '/my_venues'
+      @venue.photos.delete
+      photo_urls = params['photo_urls'].split(",")
+      photo_urls.each do |photo_url|
+        photo_url = photo_url.downcase
+        old_photo = Photo.find_by(:url => photo_url)
+        if (old_photo == nil and photo_url.include? "http")
+          @photo = Photo.new
+          @photo.url = photo_url
+          @photo.venue_id = @venue.id
+          @photo.save
+        end
+      end
+      redirect_to '/venues'
     else
       render 'edit'
     end
   end
 
   def edit
-    @photo = Photo.new
     @venue = Venue.find_by(:id => params["id"])
   end
 
@@ -70,14 +79,15 @@ class VenuesController < ApplicationController
     if @venue.save
     	photo_urls = params['photo_urls'].split(",")
     	photo_urls.each do |photo_url|
-    		@photo = Photo.new
-    		@photo.url = photo_url
-    		@photo.venue_id = @venue.id
-    		if @photo.save == false
-    			render 'new'
-    		end
-    	end
-      redirect_to '/my_venues'
+        photo_url = photo_url.downcase
+        if (photo_url.include? "http")
+          @photo = Photo.new
+          @photo.url = photo_url
+          @photo.venue_id = @venue.id
+          @photo.save
+        end
+      end
+      redirect_to '/venues'
     else
       render 'new'
     end
@@ -86,7 +96,7 @@ class VenuesController < ApplicationController
   def destroy
     venue = Venue.find_by(:id => params["id"])
     venue.delete
-    redirect_to '/my_venues'
+    redirect_to '/venues'
   end
 
   def show
@@ -113,11 +123,23 @@ class VenuesController < ApplicationController
   def my_venues
     user = User.find_by_id(session[:user_id])
     @venues = user.venues.order("created_at desc")
+    if params[:page]
+      page_no = params[:page]
+    else 
+      page_no = 1
+    end
+    @venues = @venues.page(page_no).per(10)
   end
 
   def saved
     user = User.find_by_id(session[:user_id])
     @saves = user.holds
+    if params[:page]
+      page_no = params[:page]
+    else 
+      page_no = 1
+    end
+    @saves = @saves.page(page_no).per(10)
   end
 
 end
