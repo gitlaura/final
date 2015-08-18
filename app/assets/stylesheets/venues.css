@@ -58,4 +58,10 @@ input[type="submit"]{
 
 img{
 	height: 400px;
+	border-radius: 5px;
+}
+
+td img{
+	height:75px; 
+	max-width:100px;
 }

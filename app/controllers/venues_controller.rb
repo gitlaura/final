@@ -1,6 +1,7 @@
 class VenuesController < ApplicationController
 
 	def index
+    # Check for keyword search
     if params["keyword"].present?
       k = params["keyword"].strip
       @venues = Venue.where("name LIKE '%#{k}%' OR neighborhood LIKE '%#{k}%'").order("created_at desc")
@@ -11,6 +12,7 @@ class VenuesController < ApplicationController
       @venues = Venue.order("created_at desc")
     end
     
+    # Paginate 10 results at a time
     if params[:page]
       page_no = params[:page]
     else 
@@ -18,6 +20,7 @@ class VenuesController < ApplicationController
     end
     @venues = @venues.page(page_no).per(10)
 
+    # If logged in, pass likes and saves
     @user = User.find_by_id(session[:user_id])
     if @user
       @likes = @user.likes
@@ -40,11 +43,15 @@ class VenuesController < ApplicationController
     @venue.desc = params['venue']['desc']
     @venue.save
     if @venue.save
+
+      # Save photo urls
       @venue.photos.delete
       photo_urls = params['photo_urls'].split(",")
       photo_urls.each do |photo_url|
         photo_url = photo_url.downcase
         old_photo = Photo.find_by(:url => photo_url)
+
+        # Some error checking
         if (old_photo == nil and photo_url.include? "http")
           @photo = Photo.new
           @photo.url = photo_url
@@ -83,9 +90,11 @@ class VenuesController < ApplicationController
     @venue.created_at = Time.now
     @venue.user_id = session[:user_id]
     if @venue.save
+      # Save photo urls
     	photo_urls = params['photo_urls'].split(",")
     	photo_urls.each do |photo_url|
         photo_url = photo_url.downcase
+        # Some error checking
         if (photo_url.include? "http")
           @photo = Photo.new
           @photo.url = photo_url
@@ -109,9 +118,8 @@ class VenuesController < ApplicationController
     @venue = Venue.find_by(:id => params["id"])
     @submitted_by = User.find_by_id(@venue.user_id)
     @photos = @venue.photos
-    @liked = false
-    @saved = false
 
+    # If logged in, pass likes and saves
     @user = User.find_by_id(session[:user_id])
     if @user
       @likes = @user.likes
@@ -122,6 +130,8 @@ class VenuesController < ApplicationController
   def my_venues
     user = User.find_by_id(session[:user_id])
     @venues = user.venues.order("created_at desc")
+
+    # Paginate 10 results at a time
     if params[:page]
       page_no = params[:page]
     else 
@@ -133,6 +143,8 @@ class VenuesController < ApplicationController
   def saved
     user = User.find_by_id(session[:user_id])
     @saves = user.holds
+
+    # Paginate 10 results at a time
     if params[:page]
       page_no = params[:page]
     else 

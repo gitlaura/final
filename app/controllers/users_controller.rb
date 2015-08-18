@@ -28,6 +28,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+    @user = User.find_by_id(params[:id])
+  end
+
   def create
     @user = User.new
     @user.fname = params[:fname]
@@ -44,14 +48,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find_by_id(params[:id])
-  end
-
   def update
     @user = User.find_by_id(params[:id])
     if @user.authenticate(params["password"])
       @user.password = params[:password]
+
+      # Check if user tries to update password
       if params[:new_password].present? 
         if params[:new_password] == params[:password_confirmation]
           @user.password = params[:new_password]
@@ -61,6 +63,7 @@ class UsersController < ApplicationController
           return
         end
       end
+
       @user.fname = params[:fname]
       @user.lname = params[:lname]
       @user.email = params[:email].downcase

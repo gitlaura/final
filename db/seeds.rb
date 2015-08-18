@@ -54,6 +54,21 @@ hold.user_id = User.all.first.id
 hold.venue_id = Venue.where(:name => "Las Fuentes").first.id
 hold.save
 
+hold = Hold.new
+hold.user_id = User.all.first.id 
+hold.venue_id = Venue.where(:name => "Noodles in the Pot").first.id
+hold.save
+
+hold = Hold.new
+hold.user_id = User.all.first.id 
+hold.venue_id = Venue.where(:name => "Crosbys Kitchen").first.id
+hold.save
+
+hold = Hold.new
+hold.user_id = User.all.last.id 
+hold.venue_id = Venue.where(:name => "Crosbys Kitchen").first.id
+hold.save
+
 like = Like.new
 like.venue_id = Venue.where(:name => "Las Fuentes").first.id
 like.user_id = User.all.first.id
@@ -72,6 +87,16 @@ like.save
 like = Like.new
 like.venue_id = Venue.where(:name => "Foreign Cinema").first.id
 like.user_id = User.all.last.id
+like.save
+
+like = Like.new
+like.venue_id = Venue.where(:name => "WestEnd").first.id
+like.user_id = User.all.last.id
+like.save
+
+like = Like.new
+like.venue_id = Venue.where(:name => "Greek Islands").first.id
+like.user_id = User.all.first.id
 like.save
 
 puts "Seeds updated."

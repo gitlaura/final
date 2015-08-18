@@ -16,6 +16,7 @@
   <table class='table table-striped'>
     <thead>
       <tr>
+        <th style="width:130px"></th>
         <th>Submitted</th>
         <th>Name</th>
         <th>City</th>
@@ -28,6 +29,11 @@
     <tbody>
       <% @venues.each do |venue| %>
         <tr>
+          <% if venue.photos.first %>
+            <td><img src="<%=venue.photos.first.url%>"></td>
+          <% else %>
+            <td><img src="http://slapgaard.no/smarttable/webroot/img/default-food.gif"</td>
+          <% end %>
           <td><%= venue.created_at.to_date %></td>
           <td><%= link_to venue.name, "/venues/#{venue.id}" %></td>
           <td><%= venue.city %></td>

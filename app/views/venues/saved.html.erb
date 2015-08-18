@@ -12,6 +12,7 @@
   <table class='table table-striped'>
     <thead>
       <tr>
+        <th style="width:130px"></th>
         <th>Name</th>
         <th>City</th>
         <th>Neighborhood</th>
@@ -23,6 +24,11 @@
       <% @saves.each do |save| %>
       	<% venue = Venue.find_by_id(save.venue_id) %>
         <tr>
+          <% if venue.photos.first %>
+            <td><img src="<%=venue.photos.first.url%>"></td>
+          <% else %>
+            <td><img src="http://slapgaard.no/smarttable/webroot/img/default-food.gif"</td>
+          <% end %>
           <td><%= link_to venue.name, "/venues/#{venue.id}" %></td>
           <td><%= venue.city %></td>
           <td><%= venue.neighborhood %></td>
