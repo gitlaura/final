@@ -1,9 +1,9 @@
-# BIGGROUPS REAMDE
+# BIGGROUPS
 
 #### URL
 http://biggroups.herokuapp.com/
 #### About
-BigGroups is an online directory of restaurants and bars that are good for big groups (think birthday parties, special dinners, or maybe you just have lots of friends). The restaurants and bars are submitted by people like you are members of BigGroups.co. 
+BigGroups is an online directory of restaurants and bars that are good for big groups (think birthday parties, special dinners, or maybe you just have lots of friends). The restaurants and bars are submitted by people like you who are members of BigGroups.co. 
 #### Set Up
 
 ```sh
