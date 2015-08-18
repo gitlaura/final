@@ -10,7 +10,7 @@ photo_data = JSON.parse(open('db/photo.json').read)
 user = User.new
 user.fname = "Taylor"
 user.lname = "Swift"
-user.email = "Taylor.Swift@gmail.com"
+user.email = "taylor.swift@gmail.com"
 user.password = "test"
 user.admin = false
 user.save

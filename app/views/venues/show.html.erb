@@ -6,22 +6,32 @@
 	<div>
 		<h2><%= @venue.name %></h2>
 		<% if @user %>
-			<% if @liked %>
-				<%= link_to "Unlike", "/likes/#{@venue.id}", :method => "delete", :class => "btn btn-primary", :style => "margin-bottom: 10px;"%>
-			<% else %>
-				<%= link_to "Like", likes_path(:id => @venue.id), :method => "post", :class => "btn btn-primary", :style => "margin-bottom: 10px;"%>
-			<% end %>
-
-			<% if @saved %>
-				<%= link_to "Remove from Saved List", "/holds/#{@venue.id}", :method => "delete", :class => "btn btn-primary", :style => "margin-bottom: 10px;"%>
-			<% else %>
-				<%= link_to "Save for Later", holds_path(:id => @venue.id), :method => "post", :class => "btn btn-primary", :style => "margin-bottom: 10px;"%>
-			<% end %>
+			<% if @likes.where(:venue_id => @venue.id).count > 0 %>
+        <%= link_to " Unlike", "/likes/#{@venue.id}", :method => "delete", :class => "glyphicon glyphicon-heart btn btn-danger"%>
+      <% else %>
+        <%= link_to " Like", likes_path(:id => @venue.id), :method => "post", :class => "glyphicon glyphicon-heart-empty btn btn-default"%>
+      <% end %>
+			<% if @saves.where(:venue_id => @venue.id).count > 0 %>
+	      <%= link_to " Unsave", "/holds/#{@venue.id}", :method => "delete", :class => "glyphicon glyphicon-saved btn btn-primary"%>
+	    <% else %>
+	      <%= link_to " Save", holds_path(:id => @venue.id), :method => "post", :class => "glyphicon glyphicon-ok btn btn-default"%>
+	    <% end %>
 		<% end %>
 	</div>
-
-	<h4><%=@venue.neighborhood%>, <%=@venue.cuisine%></h4>
-	<h4><%= link_to @venue.url, "#{@venue.url}" %></h4>
+	<div>
+		<h4>
+			<%if @venue.cuisine != ""%>
+				<%=@venue.cuisine%> Food in
+			<%end%>
+			<%if @venue.neighborhood != ""%>
+				<%=@venue.neighborhood%>, 
+			<%end%>
+				<%=@venue.city%>
+		</h4>
+		<h4>
+			<%= link_to "Website", "#{@venue.url}" %>
+		</h4>
+	</div>
 
 	<%if @photos.count < 1 %>
 	<%elsif @photos.count == 1 %>
@@ -74,7 +84,10 @@
 	</p>
 
 	<p><%= @venue.desc %></p>
-
-	<p>Submitted by <%=@submitted_by.fname%></p>
+	
+	<% if @submitted_by %>
+		</br>
+		<p><i>Submitted by <%=@submitted_by.fname%></i></p>
+	<% end %>
 	
 </div>

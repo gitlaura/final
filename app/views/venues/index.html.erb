@@ -12,7 +12,7 @@
   <% if session[:user_id] %>
     <a class="btn btn-warning" href="/venues/new">Add a New Place</a>
   <% else %>
-  <h3>Log In to Save or Add Places!</h3>    
+  <h3>Log in to save or add places.</h3>    
   <div>
     <a class="btn btn-success" href="/users/new">Sign Up</a>
     <a class="btn btn-warning" href="/sessions/new">Sign In</a>
@@ -28,8 +28,10 @@
       <th width="20%">Neighborhood</th>
       <th>Cuisine</th>
       <th>Likes</th>
-      <th></th>
-      <th></th>
+      <% if @user %>
+        <th></th>
+        <th><th>
+      <% end %>
     </tr>
   <tbody>
     <% @venues.each do |venue| %>
@@ -39,7 +41,22 @@
         <td><%= venue.neighborhood %></td>
         <td><%= venue.cuisine %></td>
         <td><%= venue.likes.count %></td>
-        <td></td>
+        <% if @user %>
+          <td>
+            <% if @likes.where(:venue_id => venue.id).count > 0 %>
+              <%= link_to "", "/likes/#{venue.id}", :method => "delete", :class => "glyphicon glyphicon-heart btn btn-danger"%>
+            <% else %>
+              <%= link_to "", likes_path(:id => venue.id), :method => "post", :class => "glyphicon glyphicon-heart-empty btn btn-default"%>
+            <% end %>
+        </td>
+        <td>
+            <% if @saves.where(:venue_id => venue.id).count > 0 %>
+              <%= link_to "", "/holds/#{venue.id}", :method => "delete", :class => "glyphicon glyphicon-saved btn btn-primary"%>
+            <% else %>
+              <%= link_to "", holds_path(:id => venue.id), :method => "post", :class => "glyphicon glyphicon-ok btn btn-default"%>
+            <% end %>
+        </td>
+      <% end %>  
       </tr>
     <% end %>
   </tbody>

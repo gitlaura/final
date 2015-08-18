@@ -17,6 +17,12 @@ class VenuesController < ApplicationController
       page_no = 1
     end
     @venues = @venues.page(page_no).per(10)
+
+    @user = User.find_by_id(session[:user_id])
+    if @user
+      @likes = @user.likes
+      @saves = @user.holds
+    end
   end
 
   def update
@@ -108,15 +114,8 @@ class VenuesController < ApplicationController
 
     @user = User.find_by_id(session[:user_id])
     if @user
-      likes = @user.likes
-      if likes.count > 0 and likes.where(:venue_id => @venue.id).count > 0
-        @liked = true
-      end
-
-      saves = @user.holds
-      if saves.count > 0 and saves.where(:venue_id => @venue.id).count > 0
-        @saved = true
-      end
+      @likes = @user.likes
+      @saves = @user.holds
     end
   end
 
